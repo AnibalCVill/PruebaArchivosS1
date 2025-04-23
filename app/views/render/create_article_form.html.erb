@@ -1,0 +1,29 @@
+<main>
+  <h2> MENÚ PARA CREAR ARTICULOS!!!</h2>
+  <p> Inserte los campos y aprete crear </p>
+  <%= form_with url: articles_path, method: :post do %>
+    <div>
+      <%= label_tag :title, "Título" %>
+      <%= text_field_tag "article[title]" %>
+    </div>
+    
+    <div>
+      <%= label_tag :description, "Descripción" %>
+      <%= text_field_tag "article[description]" %>
+    </div>
+    
+    <div>
+      <%= label_tag :info_type, "Tipo de info" %>
+      <%= text_field_tag "article[info_type]" %>
+    </div>
+
+    <div> 
+      <%= label_tag :references, "Referencias" %>
+      <%= text_field_tag "article[references]" %>
+    </div>
+  
+    <%= submit_tag "Crear" %>
+
+  <% end %>
+
+</main>

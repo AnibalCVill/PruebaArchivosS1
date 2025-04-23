@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Entrega</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+  </head>
+
+  <body>
+    <!-- Mostrar mensajes flash -->
+    <% flash.each do |key, message| %>
+      <div class="alert <%= key == 'alert' ? 'alert-danger' : 'alert-success' %>">
+        <%= message %>
+      </div>
+    <% end %>
+
+    <% if flash[:created] %>
+      <script>
+        alert("✅ Artículo creado correctamente");
+      </script>
+    <% end %>
+
+    <header> 
+      <h1>WIKI ENTREGA [UNSTABLE]</h1>
+      <div>
+        <%= link_to "INICIO", root_path(view: "main"), method: :get %>
+      </div>
+      <div>
+        <%= link_to "LOGIN", new_user_session_path, method: :get %>
+      </div>
+      <% if user_signed_in? %>
+        <%= link_to 'MI PERFIL', profile_path(current_user) %>
+        
+        <!-- Formulario para cerrar sesión con el método DELETE -->
+        <%= form_with(url: destroy_user_session_path, method: :delete, local: true) do %>
+          <%= submit_tag 'Cerrar sesión' %>
+        <% end %>
+      <% end %>
+
+    <%= form_with url: root_path, method: :get, local: true do %>
+      <%= hidden_field_tag :view, "search" %>
+
+      <label>Search by:</label>
+      <!-- [Opción que se muestra, output que se manda al backend] -->
+      <%= select_tag :by, options_for_select([["Title", "title"], ["ID", "id"]], params[:by]) %>
+
+      <%= text_field_tag :query, params[:query] %>
+      <%= submit_tag "Buscar" %>
+    <% end %>
+
+    <div>
+      <%= link_to "Crear Articulos", root_path(view: "create_article"), method: :get %>
+    </div>
+
+    </header>
+
+    <%= yield %>
+  </body>
+</html>

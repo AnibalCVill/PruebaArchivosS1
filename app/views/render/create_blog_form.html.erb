@@ -1,0 +1,35 @@
+<main>
+  <h2> MENÚ PARA CREAR BLOGS!!!</h2>
+  <p> Inserte los campos y aprete crear </p>
+
+  <%= form_with url: blogs_path, method: :post do %>
+    <%= hidden_field_tag "blog[article_id]", @article.id %>
+    <div>
+      <%= label_tag :title, "Título" %>
+      <%= text_field_tag "blog[title]" %>
+    </div>
+    
+    <div>
+      <%= label_tag :description, "Descripción" %>
+      <%= text_field_tag "blog[description]" %>
+    </div>
+    
+    <div>
+      <%= label_tag :info_type, "Tipo de info" %>
+      <%= text_field_tag "blog[info_type]" %>
+    </div>
+
+    <div> 
+      <%= label_tag :references, "Referencias" %>
+      <%= text_field_tag "blog[references]" %>
+    </div>
+  
+    <%= submit_tag "Crear" %>
+
+  <% end %>
+
+  <h3> REFERENCIAS </h3>
+  <p><strong><%= @article.title %> #<%= @article.id %></p>
+  
+
+</main>

@@ -1,0 +1,17 @@
+<h1>Perfil de <%= @profile.first_name %></h1>
+
+<p>Nombre: <%= @profile.first_name %> <%= @profile.last_name %></p>
+<p>Edad: <%= @profile.age %></p>
+<p>Teléfono: <%= @profile.phone %></p>
+<p>Descripción: <%= @profile.description %></p>
+<p>Correo electrónico: <%= @profile.email %></p>
+
+<% if @profile.profile_picture.present? %>
+  <%= image_tag @profile.profile_picture.url, width: 200, height: 200 %>
+<% else %>
+  <p>No tienes imagen de perfil aún.</p>
+<% end %>
+
+<%= link_to 'Editar perfil', edit_profile_path %>
+<%= button_to "Eliminar cuenta", registration_path(current_user), method: :delete, data: { confirm: "¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer." } %>
+

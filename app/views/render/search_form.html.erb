@@ -1,0 +1,39 @@
+<main>
+  <div>
+    <h1>RESULTADOS</h1>
+    <div>
+      <%= link_to "ARTÍCULOS", root_path(view: "search", search_for: "articles", by: params[:by], query: params[:query]), method: :get %>
+      <%= link_to "BLOGS", root_path(view: "search", search_for: "blogs", by: params[:by], query: params[:query]), method: :get %>
+    </div>
+    <p> Se muestran resultados de <%= @search_parameter %></p>
+    
+    <% if @results.present? && @results != [nil] %>
+      <% if @search_for == "articles" %>
+        <% @results.each do |article| %>
+          <div style="border: 2px solid black; padding: 10px;">
+            <%= link_to article.title, render_index_path(view: "article", query: article.id) %>  
+            #<%= article.id %>
+            <p> DESCRIPCIÓN: <%= article.description %></p>
+            <p> Fecha de creación: <%= article.created_at %></p>
+            <p> Última edición: <%= article.updated_at %></p>
+          </div>
+        <% end %>
+      <% else %>
+        <% @results.each do |blog| %>
+          <div style="border: 2px solid black; padding: 10px;">
+            <%= link_to blog.title, render_index_path(view: "blog", query: blog.id) %>
+            #<%= blog.id %>
+            <p> DESCRIPCIÓN: <%= blog.description %></p>
+            <p> Fecha de creación: <%= blog.created_at %></p>
+            <p> Última edición: <%= blog.updated_at %></p>
+          </div>
+        <% end %>
+      <% end %>
+    <% else %>
+      <p>No results found.</p>
+    <% end %>
+    
+    <%= link_to "CAMBIAR PESTAÑA", root_path(view: "main"), method: :get %>
+  </div>
+
+</main>

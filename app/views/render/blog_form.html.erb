@@ -1,0 +1,67 @@
+<main>
+  <script>
+    // Better to rework it onto .js folder, then import it as a function.
+    function toggleEditForm() {
+      const display = document.getElementById("blog-display");
+      const form = document.getElementById("blog-edit-form");
+      const edit_button = document.getElementById("edit-cancel-button");
+
+      if (form && display) {
+        if (form.style.display === "none") {
+          form.style.display = "block";
+          display.style.display = "none";
+          edit_button.innerText = "CANCELAR";
+        } else {
+          form.style.display = "none";
+          display.style.display = "block";
+          edit_button.innerText = "EDITAR";
+        }
+      }
+    }
+  </script>
+
+  <h2><%= @blog.title %> #<%= @blog.id %></h2>
+  
+  <div id="blog-display">
+    <p><strong>Descripción:</strong> <%= @blog.description %></p>
+    <p><strong>Tipo:</strong> <%= @blog.info_type %></p>
+    <p><strong>Editores:</strong> <%= @blog.editors %></p>
+    <p><%= link_to "Ver artículo", render_index_path(view: "article", query: @blog.article.id) %></p>
+
+  </div>
+
+  <div id="blog-edit-form" style="display: none;">
+    <%= form_with url: "/blogs/#{@blog.id}", method: :patch, local: true do %>
+      <p>
+        <%= label_tag :description, "Titulo" %><br>
+        <%= text_field_tag "blog[title]", @blog.title %>
+      </p>
+      <p>
+        <%= label_tag :description, "Descripción" %><br>
+        <%= text_field_tag "blog[description]", @blog.description %>
+      </p>
+      <p>
+        <%= label_tag :info_type, "Tipo" %><br>
+        <%= text_field_tag "blog[info_type]", @blog.info_type %>
+      </p>
+      <p>
+        <%= label_tag :references, "Editores" %><br>
+        <%= text_field_tag "blog[editors]", @blog.editors %>
+      </p>
+
+      <%= submit_tag "Guardar cambios"%>
+    <% end %>
+  </div>
+  
+  <div style="padding-bottom: 10px; margin-bottom: 10px;"> 
+    <%= link_to "EDITAR", "#", id: "edit-cancel-button", onclick: "toggleEditForm(); return false;" %>
+  </div>
+
+  <div>
+    <%= form_with url: "/blogs/#{@blog.id}", method: :delete, local: true do %>
+      <%= submit_tag "DELETE" %>
+    <%end%> 
+  </div>
+ 
+
+</main>
